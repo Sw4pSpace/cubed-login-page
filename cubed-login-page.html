@@ -1,0 +1,182 @@
+<link rel="import" href="../polymer/polymer-element.html"/>
+<link rel="import" href="../sw4p-styles/sw4p-styles.html"/>
+
+<dom-module id="cubed-login-page">
+
+    <template>
+
+        <style is="custom-style" include="sw4p-styles">
+
+            :host {
+                font-family: 'Doppio One', 'Roboto', sans-serif;
+            }
+
+            .invalid, .logout {
+                display: none;
+                width: 100%;
+                border-radius: 3px;
+                border: 1px solid;
+                user-select: none;
+                text-align: center;
+            }
+
+            .invalid *, .logout * {
+                padding: 8px;
+            }
+
+            .invalid {
+                background-color: var(--color-error); /**rgba(244, 67,54, 0.3);**/
+                border-color: var(--color-error);
+            }
+
+            .invalid * {
+                color: var(--color-error-text);
+            }
+
+            .logout {
+                background-color: var(--color-info);
+                border-color: var(--color-info);
+            }
+
+            .logout * {
+                color: var(--color-info-text);
+            }
+
+            :host([logout]) .logout {
+                display: block;
+            }
+
+            :host([invalid]) .invalid {
+                display: block;
+            }
+
+            h1 {
+                text-align: center;
+                user-select: none;
+            }
+
+            form {
+                border: 1px solid var(--color-primary-dark);
+                border-radius: 3px;
+                max-width: 412px;
+                min-width: 412px;
+            }
+
+            fieldset {
+                border: none;
+            }
+
+            .login-container {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+            }
+            label {
+                user-select: none;
+            }
+
+            input {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+            }
+
+            input:focus {
+                outline: none;
+            }
+
+            input:invalid {
+                box-shadow: 0 0 5px 1px var(--color-error);
+            }
+
+            input:focus:invalid {
+                outline: none;
+            }
+
+            .submit {
+                margin-top: 16px;
+                background-color: var(--color-primary);
+                color: var(--color-primary-text);
+                width: 100%;
+                height: 48px;
+                font-size: 18px;
+                border: none;
+                cursor: pointer;
+                border-radius: 1px;
+                user-select: none;
+            }
+
+            button:hover {
+                background-color: var(--color-primary-light);
+            }
+
+
+
+        </style>
+
+        <div class="login-container">
+            <form method="post" action="{{action}}">
+                <fieldset>
+
+                    <h1>Welcome to Cubed</h1>
+
+                    <div class="invalid">
+                        <div>The username or password you entered is incorrect. Please try again.</div>
+                    </div>
+
+                    <div class="logout">
+                        <p>You have been logged out.</p>
+                    </div>
+
+                    <div class="row">
+                        <label for="username">Username</label>
+                        <input type="text" name="Username" id="username" class="username" required="true">
+                    </div>
+
+                    <div class="row">
+                        <label for="password">Password</label>
+                        <input type="password" name="Password" id="password" class="password" required="true">
+                    </div>
+
+                    <button type="submit" name="submit" id="submit" class="submit">Login</button>
+
+                </fieldset>
+            </form>
+        </div>
+
+    </template>
+
+    <script>
+
+        class CubedLoginPage extends Polymer.Element {
+            static get is() {
+                return 'cubed-login-page';
+            }
+            static get properties() {
+                return {
+                    action: {
+                        type: String,
+                        value: "/login"
+                    },
+                    invalid: {
+                        type: Boolean
+                    },
+                    logout: {
+                        type: Boolean
+                    }
+                }
+            }
+            constructor() {
+                super();
+            }
+        }
+        customElements.define(CubedLoginPage.is, CubedLoginPage);
+    </script>
+
+</dom-module>
